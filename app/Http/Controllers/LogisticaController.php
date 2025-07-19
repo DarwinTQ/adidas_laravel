@@ -59,11 +59,17 @@ class LogisticaController extends Controller
         ));
     }
 
-    public function envios()
+    public function envios(Request $request)
     {
-        $envios = Envio::with(['pedido.cliente', 'repartidor'])
-                      ->orderBy('fecha_despacho', 'desc')
-                      ->get();
+        $query = Envio::with(['pedido.cliente', 'repartidor']);
+
+        // Búsqueda por ID de envío
+        if ($request->filled('search')) {
+            $searchId = $request->get('search');
+            $query->where('id_envio', $searchId);
+        }
+
+        $envios = $query->orderBy('fecha_despacho', 'desc')->get();
         
         // Estadísticas adicionales para envíos
         $enviosHoy = Envio::whereDate('fecha_despacho', now()->toDateString())->count();
@@ -82,13 +88,17 @@ class LogisticaController extends Controller
         ));
     }
 
-    public function pedidos()
+    public function pedidos(Request $request)
     {
-        $pedidos = Pedido::with(['cliente', 'envio', 'productos'])
-                         ->orderBy('fecha_pedido', 'desc')
-                         ->get();
-        
-        // Estadísticas adicionales para pedidos
+        $query = Pedido::with(['cliente', 'envio', 'productos']);
+
+        // Búsqueda por ID de pedido
+        if ($request->filled('search')) {
+            $searchId = $request->get('search');
+            $query->where('id_pedido', $searchId);
+        }
+
+        $pedidos = $query->orderBy('fecha_pedido', 'desc')->get();        // Estadísticas adicionales para pedidos
         $pedidosHoy = Pedido::whereDate('fecha_pedido', now()->toDateString())->count();
         $ingresosTotales = Pedido::where('estado_pago', 'Pagado')->sum('monto_total');
         $ingresosPendientes = Pedido::where('estado_pago', 'Pendiente')->sum('monto_total');
@@ -105,16 +115,32 @@ class LogisticaController extends Controller
         ));
     }
 
-    public function clientes()
+    public function clientes(Request $request)
     {
-        $clientes = Cliente::with('pedidos')->get();
+        $query = Cliente::with('pedidos');
+
+        // Búsqueda por ID de cliente
+        if ($request->filled('search')) {
+            $searchId = $request->get('search');
+            $query->where('id_cliente', $searchId);
+        }
+
+        $clientes = $query->get();
         
         return view('logistica.clientes', compact('clientes'));
     }
 
-    public function productos()
+    public function productos(Request $request)
     {
-        $productos = Producto::all();
+        $query = Producto::with('pedidos');
+
+        // Búsqueda por ID de producto
+        if ($request->filled('search')) {
+            $searchId = $request->get('search');
+            $query->where('id_producto', $searchId);
+        }
+
+        $productos = $query->get();
         
         // Estadísticas adicionales para productos
         $valorTotalInventario = Producto::selectRaw('SUM(precio * stock) as total')->first()->total ?? 0;
@@ -141,9 +167,17 @@ class LogisticaController extends Controller
         ));
     }
 
-    public function repartidores()
+    public function repartidores(Request $request)
     {
-        $repartidores = Repartidor::with('envios')->get();
+        $query = Repartidor::with('envios');
+
+        // Búsqueda por ID de repartidor
+        if ($request->filled('search')) {
+            $searchId = $request->get('search');
+            $query->where('id_repartidor', $searchId);
+        }
+
+        $repartidores = $query->get();
         
         // Estadísticas adicionales para repartidores
         $repartidorDelMes = Repartidor::withCount(['envios' => function($query) {

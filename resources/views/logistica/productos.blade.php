@@ -13,6 +13,29 @@
         <h3><i class="fas fa-box"></i> Lista de Productos</h3>
     </div>
     
+    <!-- Buscador por ID -->
+    <div class="search-container">
+        <form method="GET" action="{{ route('logistica.productos') }}" class="search-box" id="search-form">
+            <div style="position: relative;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="number" 
+                       name="search" 
+                       class="search-input" 
+                       placeholder="Buscar por ID de Producto..." 
+                       value="{{ request('search') }}"
+                       min="1">
+            </div>
+        </form>
+        <button type="submit" form="search-form" class="search-btn">
+            <i class="fas fa-search"></i> Buscar
+        </button>
+        @if(request('search'))
+            <a href="{{ route('logistica.productos') }}" class="clear-btn">
+                <i class="fas fa-times"></i> Limpiar
+            </a>
+        @endif
+    </div>
+    
     @if($productos->count() > 0)
         <table>
             <thead>
