@@ -108,6 +108,9 @@
                 })->count() }}
             </div>
             <div class="stat-label">Disponibles</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #4caf50;">
+                Listos para nuevos envíos
+            </div>
         </div>
 
         <div class="stat-card">
@@ -120,24 +123,142 @@
                 })->count() }}
             </div>
             <div class="stat-label">En Servicio</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #ff9800;">
+                Con entregas pendientes
+            </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon" style="color: #2196f3;">
-                <i class="fas fa-truck"></i>
+                <i class="fas fa-calendar-day"></i>
             </div>
-            <div class="stat-number">{{ $repartidores->sum(function($r) { return $r->envios->count(); }) }}</div>
-            <div class="stat-label">Entregas Totales</div>
+            <div class="stat-number">{{ $entregasDelDia }}</div>
+            <div class="stat-label">Entregas Hoy</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Completadas este día
+            </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon" style="color: #9c27b0;">
-                <i class="fas fa-medal"></i>
+                <i class="fas fa-stopwatch"></i>
             </div>
-            <div class="stat-number">
-                {{ $repartidores->max(function($r) { return $r->envios->count(); }) ?: 0 }}
+            <div class="stat-number">{{ number_format($tiempoPromedioEntrega, 1) }}</div>
+            <div class="stat-label">Días Promedio</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Tiempo de entrega
             </div>
-            <div class="stat-label">Máximo Entregas</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #795548;">
+                <i class="fas fa-percentage"></i>
+            </div>
+            <div class="stat-number">{{ number_format($eficienciaEntregas, 1) }}%</div>
+            <div class="stat-label">Eficiencia Entregas</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Tasa de éxito
+            </div>
+        </div>
+
+        @if($repartidorDelMes)
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #ff5722;">
+                <i class="fas fa-crown"></i>
+            </div>
+            <div class="stat-number">{{ $repartidorDelMes->envios_count }}</div>
+            <div class="stat-label">Repartidor del Mes</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                {{ Str::limit($repartidorDelMes->nombre_completo, 20) }}
+            </div>
+        </div>
+        @endif
+
+        @if($repartidorMasRapido)
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #00bcd4;">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div class="stat-number">{{ number_format($repartidorMasRapido->tiempo_promedio, 1) }}</div>
+            <div class="stat-label">Más Rápido</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                {{ Str::limit($repartidorMasRapido->nombre_completo, 15) }}
+            </div>
+        </div>
+        @endif
+
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #607d8b;">
+                <i class="fas fa-truck"></i>
+            </div>
+            <div class="stat-number">{{ $repartidores->sum(function($r) { return $r->envios->count(); }) }}</div>
+            <div class="stat-label">Entregas Totales</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Historial completo
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estadísticas adicionales por repartidor -->
+<div class="data-table" style="margin-top: 2rem;">
+    <div class="table-header">
+        <h3><i class="fas fa-chart-bar"></i> Estadísticas Detalladas por Repartidor</h3>
+    </div>
+    <div style="padding: 1rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem;">
+            @foreach($repartidores as $repartidor)
+            @php
+                $entregasCompletadas = $repartidor->envios->where('estado_envio', 'Entregado')->count();
+                $entregasPendientes = $repartidor->envios->whereNotIn('estado_envio', ['Entregado'])->count();
+                $eficienciaPersonal = $repartidor->envios->count() > 0 ? 
+                    ($entregasCompletadas / $repartidor->envios->count()) * 100 : 0;
+                $tiempoPromedioPersonal = $repartidor->envios
+                    ->whereNotNull('fecha_entrega_real')
+                    ->whereNotNull('fecha_despacho')
+                    ->avg(function($envio) {
+                        return \Carbon\Carbon::parse($envio->fecha_entrega_real)
+                             ->diffInDays(\Carbon\Carbon::parse($envio->fecha_despacho));
+                    });
+            @endphp
+            
+            <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="width: 50px; height: 50px; border-radius: 50%; background: #4caf50; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: #ffffff;">{{ $repartidor->nombre_completo }}</h4>
+                        @if($repartidor->vehiculo_placa)
+                            <small style="color: #ff9800;">
+                                <i class="fas fa-motorcycle"></i> {{ $repartidor->vehiculo_placa }}
+                            </small>
+                        @endif
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="text-align: center; background: #333; padding: 0.8rem; border-radius: 8px;">
+                        <div style="font-size: 1.5rem; color: #4caf50; font-weight: bold;">{{ $entregasCompletadas }}</div>
+                        <div style="font-size: 0.9rem; color: #cccccc;">Completadas</div>
+                    </div>
+                    <div style="text-align: center; background: #333; padding: 0.8rem; border-radius: 8px;">
+                        <div style="font-size: 1.5rem; color: #ff9800; font-weight: bold;">{{ $entregasPendientes }}</div>
+                        <div style="font-size: 0.9rem; color: #cccccc;">Pendientes</div>
+                    </div>
+                    <div style="text-align: center; background: #333; padding: 0.8rem; border-radius: 8px;">
+                        <div style="font-size: 1.5rem; color: #2196f3; font-weight: bold;">{{ number_format($eficienciaPersonal, 1) }}%</div>
+                        <div style="font-size: 0.9rem; color: #cccccc;">Eficiencia</div>
+                    </div>
+                    <div style="text-align: center; background: #333; padding: 0.8rem; border-radius: 8px;">
+                        <div style="font-size: 1.5rem; color: #9c27b0; font-weight: bold;">
+                            {{ $tiempoPromedioPersonal ? number_format($tiempoPromedioPersonal, 1) : '0' }}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #cccccc;">Días Prom.</div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 </div>

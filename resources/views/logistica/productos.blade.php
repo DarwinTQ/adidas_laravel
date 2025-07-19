@@ -83,35 +83,123 @@
     <div class="stats-grid">
         <div class="stat-card">
             <div class="stat-icon" style="color: #4caf50;">
-                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-dollar-sign"></i>
             </div>
-            <div class="stat-number">{{ $productos->where('stock', '>', 10)->count() }}</div>
-            <div class="stat-label">Con Stock Alto</div>
+            <div class="stat-number">S/. {{ number_format($valorTotalInventario, 0) }}</div>
+            <div class="stat-label">Valor Total Inventario</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Precio × Stock total
+            </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon" style="color: #ff9800;">
-                <i class="fas fa-exclamation-triangle"></i>
+                <i class="fas fa-boxes"></i>
             </div>
-            <div class="stat-number">{{ $productos->whereBetween('stock', [1, 10])->count() }}</div>
-            <div class="stat-label">Stock Bajo</div>
+            <div class="stat-number">{{ number_format($stockTotalUnidades) }}</div>
+            <div class="stat-label">Unidades en Stock</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Total de productos
+            </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon" style="color: #f44336;">
-                <i class="fas fa-times-circle"></i>
+                <i class="fas fa-exclamation-triangle"></i>
             </div>
             <div class="stat-number">{{ $productos->where('stock', 0)->count() }}</div>
-            <div class="stat-label">Agotados</div>
+            <div class="stat-label">Productos Agotados</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #f44336;">
+                Sin stock disponible
+            </div>
         </div>
 
         <div class="stat-card">
+            <div class="stat-icon" style="color: #ff5722;">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="stat-number">{{ $productos->whereBetween('stock', [1, 10])->count() }}</div>
+            <div class="stat-label">Stock Bajo</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #ff9800;">
+                Menos de 10 unidades
+            </div>
+        </div>
+
+        @if($productoMasVendido)
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #9c27b0;">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <div class="stat-number">{{ $productoMasVendido->pedidos_count }}</div>
+            <div class="stat-label">Más Vendido</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                {{ Str::limit($productoMasVendido->nombre_producto, 15) }}
+            </div>
+        </div>
+        @endif
+
+        <div class="stat-card">
             <div class="stat-icon" style="color: #2196f3;">
-                <i class="fas fa-dollar-sign"></i>
+                <i class="fas fa-chart-bar"></i>
             </div>
             <div class="stat-number">S/. {{ number_format($productos->avg('precio'), 2) }}</div>
             <div class="stat-label">Precio Promedio</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Media de precios
+            </div>
         </div>
+
+        @if($productoMasCaro)
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #795548;">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="stat-number">S/. {{ number_format($productoMasCaro->precio, 2) }}</div>
+            <div class="stat-label">Producto Premium</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                {{ Str::limit($productoMasCaro->nombre_producto, 15) }}
+            </div>
+        </div>
+        @endif
+
+        @if($productoMasBarato)
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #00bcd4;">
+                <i class="fas fa-tag"></i>
+            </div>
+            <div class="stat-number">S/. {{ number_format($productoMasBarato->precio, 2) }}</div>
+            <div class="stat-label">Producto Económico</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                {{ Str::limit($productoMasBarato->nombre_producto, 15) }}
+            </div>
+        </div>
+        @endif
+    </div>
+</div>
+
+<!-- Top Productos por Ingresos -->
+<div class="data-table" style="margin-top: 2rem;">
+    <div class="table-header">
+        <h3><i class="fas fa-medal"></i> Top Productos por Ingresos</h3>
+    </div>
+    <div style="padding: 1rem;">
+        @foreach($ingresosPorProducto->take(10) as $index => $producto)
+        <div style="background: #2a2a2a; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: #2196f3; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">
+                    {{ $index + 1 }}
+                </div>
+                <div>
+                    <strong>{{ Str::limit($producto['nombre'], 40) }}</strong><br>
+                    <small style="color: #999;">Producto estrella</small>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <strong style="color: #4caf50; font-size: 1.2rem;">S/. {{ number_format($producto['ingresos'], 2) }}</strong><br>
+                <small style="color: #999;">Ingresos generados</small>
+            </div>
+        </div>
+        @endforeach
     </div>
 </div>
 

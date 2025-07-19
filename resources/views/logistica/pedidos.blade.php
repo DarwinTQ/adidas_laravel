@@ -116,6 +116,9 @@
             </div>
             <div class="stat-number">{{ $pedidos->where('estado_pago', 'Pendiente')->count() }}</div>
             <div class="stat-label">Pagos Pendientes</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #ff9800;">
+                S/. {{ number_format($ingresosPendientes, 2) }} por cobrar
+            </div>
         </div>
 
         <div class="stat-card">
@@ -124,23 +127,89 @@
             </div>
             <div class="stat-number">{{ $pedidos->where('estado_pago', 'Pagado')->count() }}</div>
             <div class="stat-label">Pagos Completados</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #4caf50;">
+                S/. {{ number_format($ingresosTotales, 2) }} confirmados
+            </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon" style="color: #2196f3;">
-                <i class="fas fa-calculator"></i>
+                <i class="fas fa-calendar-day"></i>
             </div>
-            <div class="stat-number">S/. {{ number_format($pedidos->sum('monto_total'), 2) }}</div>
-            <div class="stat-label">Ingresos Totales</div>
+            <div class="stat-number">{{ $pedidosHoy }}</div>
+            <div class="stat-label">Pedidos Hoy</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Nuevos pedidos del día
+            </div>
         </div>
 
         <div class="stat-card">
             <div class="stat-icon" style="color: #9c27b0;">
-                <i class="fas fa-chart-line"></i>
+                <i class="fas fa-calculator"></i>
             </div>
-            <div class="stat-number">S/. {{ number_format($pedidos->where('estado_pago', 'Pagado')->sum('monto_total'), 2) }}</div>
-            <div class="stat-label">Ingresos Confirmados</div>
+            <div class="stat-number">S/. {{ number_format($ticketPromedio, 2) }}</div>
+            <div class="stat-label">Ticket Promedio</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Valor medio por pedido
+            </div>
+        </div>
+
+        @if($ciudadMasPedidos)
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #00bcd4;">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="stat-number">{{ $ciudadMasPedidos->total }}</div>
+            <div class="stat-label">{{ $ciudadMasPedidos->ciudad_envio }}</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Ciudad con más pedidos
+            </div>
+        </div>
+        @endif
+
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #ff5722;">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <div class="stat-number">S/. {{ $pedidosMasAltos->first() ? number_format($pedidosMasAltos->first()->monto_total, 2) : '0.00' }}</div>
+            <div class="stat-label">Pedido Más Alto</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Valor máximo registrado
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Top 5 Pedidos Más Altos -->
+@if($pedidosMasAltos->count() > 0)
+<div class="data-table" style="margin-top: 2rem;">
+    <div class="table-header">
+        <h3><i class="fas fa-medal"></i> Top 5 Pedidos de Mayor Valor</h3>
+    </div>
+    <div style="padding: 1rem;">
+        @foreach($pedidosMasAltos as $index => $pedido)
+        <div style="background: #2a2a2a; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: #FFD700; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black;">
+                    {{ $index + 1 }}
+                </div>
+                <div>
+                    <strong>Pedido #{{ $pedido->id_pedido }}</strong><br>
+                    <small style="color: #999;">
+                        {{ $pedido->cliente ? $pedido->cliente->nombre : 'Cliente no encontrado' }} | 
+                        {{ \Carbon\Carbon::parse($pedido->fecha_pedido)->format('d/m/Y') }}
+                    </small>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <strong style="color: #4caf50; font-size: 1.2rem;">S/. {{ number_format($pedido->monto_total, 2) }}</strong><br>
+                <span class="status-badge {{ $pedido->estado_pago === 'Pagado' ? 'status-pagado' : 'status-pendiente' }}">
+                    {{ $pedido->estado_pago }}
+                </span>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+@endif
 @endsection

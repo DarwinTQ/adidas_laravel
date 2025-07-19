@@ -101,7 +101,7 @@
             <div class="stat-icon" style="color: #4caf50;">
                 <i class="fas fa-user-check"></i>
             </div>
-            <div class="stat-number">{{ $clientes->where('pedidos', '!=', null)->count() }}</div>
+            <div class="stat-number">{{ $clientes->filter(function($c) { return $c->pedidos->count() > 0; })->count() }}</div>
             <div class="stat-label">Clientes Activos</div>
         </div>
 
@@ -109,7 +109,7 @@
             <div class="stat-icon" style="color: #ff9800;">
                 <i class="fas fa-user-plus"></i>
             </div>
-            <div class="stat-number">{{ $clientes->where('pedidos', '==', null)->count() }}</div>
+            <div class="stat-number">{{ $clientes->filter(function($c) { return $c->pedidos->count() === 0; })->count() }}</div>
             <div class="stat-label">Clientes Nuevos</div>
         </div>
 

@@ -117,6 +117,9 @@
             </div>
             <div class="stat-number">{{ $envios->where('estado_envio', 'En almacen')->count() }}</div>
             <div class="stat-label">En Almacén</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Listos para despacho
+            </div>
         </div>
 
         <div class="stat-card">
@@ -125,6 +128,9 @@
             </div>
             <div class="stat-number">{{ $envios->where('estado_envio', 'En camino')->count() }}</div>
             <div class="stat-label">En Camino</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                En ruta de entrega
+            </div>
         </div>
 
         <div class="stat-card">
@@ -133,6 +139,42 @@
             </div>
             <div class="stat-number">{{ $envios->where('estado_envio', 'Entregado')->count() }}</div>
             <div class="stat-label">Entregados</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #4caf50;">
+                {{ $entregasHoy }} entregados hoy
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #2196f3;">
+                <i class="fas fa-calendar-plus"></i>
+            </div>
+            <div class="stat-number">{{ $enviosHoy }}</div>
+            <div class="stat-label">Despachados Hoy</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Nuevos envíos del día
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #9c27b0;">
+                <i class="fas fa-stopwatch"></i>
+            </div>
+            <div class="stat-number">{{ $tiempoPromedioEntrega }}</div>
+            <div class="stat-label">Días Promedio</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+                Tiempo de entrega
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon" style="color: #f44336;">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="stat-number">{{ $enviosRetrasados }}</div>
+            <div class="stat-label">Envíos Retrasados</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #f44336;">
+                Pasaron fecha estimada
+            </div>
         </div>
     </div>
 </div>

@@ -15,6 +15,9 @@
         </div>
         <div class="stat-number">{{ $totalClientes }}</div>
         <div class="stat-label">Clientes Registrados</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #4caf50;">
+            +{{ $clientesNuevosHoy }} hoy | +{{ $clientesNuevosMes }} este mes
+        </div>
     </div>
 
     <div class="stat-card">
@@ -23,14 +26,20 @@
         </div>
         <div class="stat-number">{{ $totalPedidos }}</div>
         <div class="stat-label">Pedidos Totales</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #2196f3;">
+            {{ $pedidosHoy }} hoy | {{ $pedidosMes }} este mes
+        </div>
     </div>
 
     <div class="stat-card">
         <div class="stat-icon">
-            <i class="fas fa-box"></i>
+            <i class="fas fa-dollar-sign"></i>
         </div>
-        <div class="stat-number">{{ $totalProductos }}</div>
-        <div class="stat-label">Productos Disponibles</div>
+        <div class="stat-number">S/. {{ number_format($ingresosMes, 0) }}</div>
+        <div class="stat-label">Ingresos del Mes</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #4caf50;">
+            S/. {{ number_format($ingresosHoy, 2) }} hoy
+        </div>
     </div>
 
     <div class="stat-card">
@@ -39,6 +48,54 @@
         </div>
         <div class="stat-number">{{ $enviosEnProceso }}</div>
         <div class="stat-label">Envíos en Proceso</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #ff9800;">
+            {{ $entregasHoy }} entregas hoy | {{ $entregasMes }} este mes
+        </div>
+    </div>
+
+    <!-- Nuevas estadísticas -->
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #9c27b0;">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-number">{{ number_format($promedioEntrega, 1) }}</div>
+        <div class="stat-label">Días Promedio Entrega</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+            Tiempo de despacho a entrega
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #f44336;">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="stat-number">{{ $stockBajo + $stockAgotado }}</div>
+        <div class="stat-label">Alertas de Stock</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #f44336;">
+            {{ $stockBajo }} bajo | {{ $stockAgotado }} agotado
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #00bcd4;">
+            <i class="fas fa-motorcycle"></i>
+        </div>
+        <div class="stat-number">{{ $repartidoresActivos }}</div>
+        <div class="stat-label">Repartidores Activos</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #4caf50;">
+            {{ $repartidoresLibres }} disponibles
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon" style="color: #795548;">
+            <i class="fas fa-box"></i>
+        </div>
+        <div class="stat-number">{{ $totalProductos }}</div>
+        <div class="stat-label">Productos en Catálogo</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+            Inventario disponible
+        </div>
     </div>
 </div>
 
