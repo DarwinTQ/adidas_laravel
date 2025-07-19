@@ -15,15 +15,15 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            color: #000000;
             min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(90deg, #000000 0%, #333333 100%);
+            background: linear-gradient(90deg, #ffffff 0%, #cccccc 100%);
             padding: 1rem 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -44,7 +44,7 @@
         }
 
         .logo h1 {
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: linear-gradient(45deg, #000000, #333333);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -60,7 +60,7 @@
         }
 
         .nav-menu a {
-            color: #ffffff;
+            color: #000000;
             text-decoration: none;
             padding: 0.5rem 1rem;
             border-radius: 25px;
@@ -69,8 +69,8 @@
         }
 
         .nav-menu a:hover, .nav-menu a.active {
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            color: #000000;
+            background: linear-gradient(45deg, #000000, #333333);
+            color: #ffffff;
             transform: translateY(-2px);
         }
 
@@ -87,7 +87,7 @@
 
         .page-title h2 {
             font-size: 3rem;
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: linear-gradient(45deg, #000000, #333333);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -95,7 +95,7 @@
         }
 
         .page-title p {
-            color: #cccccc;
+            color: #333333;
             font-size: 1.2rem;
         }
 
@@ -107,13 +107,13 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
             padding: 2rem;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
             transition: transform 0.3s ease;
-            border: 1px solid #333;
+            border: 1px solid #cccccc;
         }
 
         .stat-card:hover {
@@ -122,38 +122,38 @@
 
         .stat-icon {
             font-size: 3rem;
-            color: #ffffff;
+            color: #000000;
             margin-bottom: 1rem;
         }
 
         .stat-number {
             font-size: 2.5rem;
             font-weight: bold;
-            color: #ffffff;
+            color: #000000;
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: #cccccc;
+            color: #333333;
             font-size: 1.1rem;
         }
 
         .data-table {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+            border: 1px solid #cccccc;
         }
 
         .table-header {
-            background: linear-gradient(90deg, #333333 0%, #444444 100%);
+            background: linear-gradient(90deg, #cccccc 0%, #bbbbbb 100%);
             padding: 1.5rem;
-            border-bottom: 1px solid #444;
+            border-bottom: 1px solid #bbbbbb;
         }
 
         .table-header h3 {
-            color: #ffffff;
+            color: #000000;
             font-size: 1.5rem;
         }
 
@@ -165,21 +165,21 @@
         th, td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #333;
+            border-bottom: 1px solid #cccccc;
         }
 
         th {
-            background: #2a2a2a;
-            color: #ffffff;
+            background: #e5e5e5;
+            color: #000000;
             font-weight: 600;
         }
 
         td {
-            color: #cccccc;
+            color: #333333;
         }
 
         tr:hover {
-            background: #2a2a2a;
+            background: #e5e5e5;
         }
 
         .status-badge {
@@ -216,8 +216,8 @@
         }
 
         .btn {
-            background: linear-gradient(45deg, #ffffff, #cccccc);
-            color: #000000;
+            background: linear-gradient(45deg, #000000, #333333);
+            color: #ffffff;
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 25px;
@@ -230,7 +230,7 @@
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .btn-small {
@@ -252,8 +252,8 @@
         .footer {
             text-align: center;
             padding: 2rem;
-            color: #666;
-            border-top: 1px solid #333;
+            color: #999999;
+            border-top: 1px solid #cccccc;
             margin-top: 3rem;
         }
 
@@ -287,7 +287,7 @@
         <div class="header-content">
             <div class="logo">
                 <h1>ADIDAS</h1>
-                <span style="color: #cccccc;">LOGÍSTICA</span>
+                <span style="color: #333333;">LOGÍSTICA</span>
             </div>
             <nav>
                 <ul class="nav-menu">

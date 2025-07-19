@@ -34,20 +34,20 @@
                         @if($envio->pedido && $envio->pedido->cliente)
                             <div>
                                 <strong>{{ $envio->pedido->cliente->nombre }}</strong><br>
-                                <small style="color: #999;">{{ $envio->pedido->cliente->email }}</small>
+                                <small style="color: #666666;">{{ $envio->pedido->cliente->email }}</small>
                             </div>
                         @else
-                            <span style="color: #999;">N/A</span>
+                            <span style="color: #666666;">N/A</span>
                         @endif
                     </td>
                     <td>
                         @if($envio->repartidor)
                             <div>
                                 <strong>{{ $envio->repartidor->nombre_completo }}</strong><br>
-                                <small style="color: #999;">{{ $envio->repartidor->vehiculo_placa }}</small>
+                                <small style="color: #666666;">{{ $envio->repartidor->vehiculo_placa }}</small>
                             </div>
                         @else
-                            <span style="color: #999;">Sin asignar</span>
+                            <span style="color: #666666;">Sin asignar</span>
                         @endif
                     </td>
                     <td>
@@ -101,9 +101,9 @@
         </table>
     @else
         <div style="padding: 3rem; text-align: center;">
-            <i class="fas fa-truck" style="font-size: 4rem; color: #666; margin-bottom: 1rem;"></i>
-            <h3 style="color: #999; margin-bottom: 0.5rem;">No hay envíos registrados</h3>
-            <p style="color: #666;">Los envíos aparecerán aquí cuando se creen pedidos.</p>
+            <i class="fas fa-truck" style="font-size: 4rem; color: #999999; margin-bottom: 1rem;"></i>
+            <h3 style="color: #666666; margin-bottom: 0.5rem;">No hay envíos registrados</h3>
+            <p style="color: #999999;">Los envíos aparecerán aquí cuando se creen pedidos.</p>
         </div>
     @endif
 </div>

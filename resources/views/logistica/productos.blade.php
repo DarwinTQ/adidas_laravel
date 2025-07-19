@@ -31,9 +31,9 @@
                     <td><strong>#{{ $producto->id_producto }}</strong></td>
                     <td>
                         <div>
-                            <strong style="color: #ffffff;">{{ $producto->nombre_producto }}</strong><br>
+                            <strong style="color: #000000;">{{ $producto->nombre_producto }}</strong><br>
                             @if($producto->descripcion)
-                                <small style="color: #999;">{{ Str::limit($producto->descripcion, 100) }}</small>
+                                <small style="color: #666666;">{{ Str::limit($producto->descripcion, 100) }}</small>
                             @endif
                         </div>
                     </td>
@@ -184,19 +184,19 @@
     </div>
     <div style="padding: 1rem;">
         @foreach($ingresosPorProducto->take(10) as $index => $producto)
-        <div style="background: #2a2a2a; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="background: #e5e5e5; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <div style="width: 30px; height: 30px; border-radius: 50%; background: #2196f3; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">
                     {{ $index + 1 }}
                 </div>
                 <div>
                     <strong>{{ Str::limit($producto['nombre'], 40) }}</strong><br>
-                    <small style="color: #999;">Producto estrella</small>
+                    <small style="color: #666666;">Producto estrella</small>
                 </div>
             </div>
             <div style="text-align: right;">
                 <strong style="color: #4caf50; font-size: 1.2rem;">S/. {{ number_format($producto['ingresos'], 2) }}</strong><br>
-                <small style="color: #999;">Ingresos generados</small>
+                <small style="color: #666666;">Ingresos generados</small>
             </div>
         </div>
         @endforeach
@@ -218,18 +218,18 @@
             @endphp
             
             @foreach($productosOrdenados as $producto)
-                <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px; text-align: center;">
-                    <div style="background: #333; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-tshirt" style="font-size: 1.5rem; color: #ffffff;"></i>
+                <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px; text-align: center;">
+                    <div style="background: #cccccc; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-tshirt" style="font-size: 1.5rem; color: #000000;"></i>
                     </div>
-                    <h4 style="color: #ffffff; margin-bottom: 0.5rem;">{{ Str::limit($producto->nombre_producto, 30) }}</h4>
+                    <h4 style="color: #000000; margin-bottom: 0.5rem;">{{ Str::limit($producto->nombre_producto, 30) }}</h4>
                     <p style="color: #4caf50; font-weight: bold; margin-bottom: 0.5rem;">S/. {{ number_format($producto->precio, 2) }}</p>
                     <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
-                        <span style="color: #999;">Ventas:</span>
+                        <span style="color: #666666;">Ventas:</span>
                         <span style="color: #2196f3; font-weight: bold;">{{ $producto->pedidos->count() }}</span>
                     </div>
                     <div style="display: flex; justify-content: space-between;">
-                        <span style="color: #999;">Stock:</span>
+                        <span style="color: #666666;">Stock:</span>
                         @if($producto->stock > 10)
                             <span style="color: #4caf50; font-weight: bold;">{{ $producto->stock }}</span>
                         @elseif($producto->stock > 0)

@@ -31,9 +31,9 @@
                     <td><strong>#{{ $repartidor->id_repartidor }}</strong></td>
                     <td>
                         <div>
-                            <strong style="color: #ffffff;">{{ $repartidor->nombre_completo }}</strong><br>
+                            <strong style="color: #000000;">{{ $repartidor->nombre_completo }}</strong><br>
                             @if($repartidor->telefono)
-                                <small style="color: #999;">
+                                <small style="color: #666666;">
                                     <i class="fas fa-phone"></i> {{ $repartidor->telefono }}
                                 </small>
                             @endif
@@ -41,12 +41,12 @@
                     </td>
                     <td>
                         @if($repartidor->vehiculo_placa)
-                            <div style="background: #333; padding: 0.5rem; border-radius: 5px; text-align: center;">
+                            <div style="background: #cccccc; padding: 0.5rem; border-radius: 5px; text-align: center;">
                                 <i class="fas fa-motorcycle" style="color: #ff9800;"></i><br>
                                 <strong>{{ $repartidor->vehiculo_placa }}</strong>
                             </div>
                         @else
-                            <span style="color: #999;">Sin vehículo</span>
+                            <span style="color: #666666;">Sin vehículo</span>
                         @endif
                     </td>
                     <td>
@@ -222,13 +222,13 @@
                     });
             @endphp
             
-            <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px;">
+            <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px;">
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
                     <div style="width: 50px; height: 50px; border-radius: 50%; background: #4caf50; display: flex; align-items: center; justify-content: center;">
                         <i class="fas fa-user" style="color: white; font-size: 1.2rem;"></i>
                     </div>
                     <div>
-                        <h4 style="color: #ffffff;">{{ $repartidor->nombre_completo }}</h4>
+                        <h4 style="color: #000000;">{{ $repartidor->nombre_completo }}</h4>
                         @if($repartidor->vehiculo_placa)
                             <small style="color: #ff9800;">
                                 <i class="fas fa-motorcycle"></i> {{ $repartidor->vehiculo_placa }}
@@ -278,18 +278,18 @@
             @endphp
             
             @foreach($repartidoresOrdenados as $index => $repartidor)
-                <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px; text-align: center; position: relative;">
+                <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px; text-align: center; position: relative;">
                     @if($index < 3)
                         <div style="position: absolute; top: -10px; right: -10px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; background: #FFD700;">
                             {{ $index + 1 }}
                         </div>
                     @endif
                     
-                    <div style="background: #333; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-user" style="font-size: 1.5rem; color: #ffffff;"></i>
+                    <div style="background: #cccccc; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user" style="font-size: 1.5rem; color: #000000;"></i>
                     </div>
                     
-                    <h4 style="color: #ffffff; margin-bottom: 0.5rem;">{{ $repartidor->nombre_completo }}</h4>
+                    <h4 style="color: #000000; margin-bottom: 0.5rem;">{{ $repartidor->nombre_completo }}</h4>
                     
                     @if($repartidor->vehiculo_placa)
                         <p style="color: #ff9800; margin-bottom: 1rem;">
@@ -298,19 +298,19 @@
                     @endif
                     
                     <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
-                        <span style="color: #999;">Entregas:</span>
+                        <span style="color: #666666;">Entregas:</span>
                         <span style="color: #2196f3; font-weight: bold;">{{ $repartidor->envios->count() }}</span>
                     </div>
                     
                     <div style="display: flex; justify-content: space-between;">
-                        <span style="color: #999;">Completadas:</span>
+                        <span style="color: #666666;">Completadas:</span>
                         <span style="color: #4caf50; font-weight: bold;">
                             {{ $repartidor->envios->where('estado_envio', 'Entregado')->count() }}
                         </span>
                     </div>
                     
                     <div style="display: flex; justify-content: space-between;">
-                        <span style="color: #999;">En curso:</span>
+                        <span style="color: #666666;">En curso:</span>
                         <span style="color: #ff9800; font-weight: bold;">
                             {{ $repartidor->envios->whereNotIn('estado_envio', ['Entregado'])->count() }}
                         </span>

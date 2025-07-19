@@ -83,10 +83,10 @@
 
 <!-- Modal para detalle del cliente -->
 <div id="clienteModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000;">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1a1a1a; padding: 2rem; border-radius: 15px; max-width: 600px; width: 90%; max-height: 80%; overflow-y: auto;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #f5f5f5; padding: 2rem; border-radius: 15px; max-width: 600px; width: 90%; max-height: 80%; overflow-y: auto;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h3 style="color: #ffffff;">Detalle del Cliente</h3>
-            <button onclick="cerrarModal()" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">
+            <h3 style="color: #000000;">Detalle del Cliente</h3>
+            <button onclick="cerrarModal()" style="background: none; border: none; color: #000000; font-size: 1.5rem; cursor: pointer;">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -135,9 +135,9 @@
 function verDetalle(clienteId) {
     // Mostrar información básica del cliente
     document.getElementById('clienteDetalle').innerHTML = `
-        <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
-            <h4 style="color: #ffffff; margin-bottom: 1rem;">Información del Cliente #${clienteId}</h4>
-            <p>Para ver más detalles, consulte directamente en la base de datos.</p>
+        <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+            <h4 style="color: #000000; margin-bottom: 1rem;">Información del Cliente #${clienteId}</h4>
+            <p style="color: #333333;">Para ver más detalles, consulte directamente en la base de datos.</p>
         </div>
     `;
     

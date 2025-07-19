@@ -35,11 +35,11 @@
                         @if($pedido->cliente)
                             <div>
                                 <strong>{{ $pedido->cliente->nombre }}</strong><br>
-                                <small style="color: #999;">{{ $pedido->cliente->email }}</small><br>
-                                <small style="color: #999;">{{ $pedido->cliente->telefono }}</small>
+                                <small style="color: #666666;">{{ $pedido->cliente->email }}</small><br>
+                                <small style="color: #666666;">{{ $pedido->cliente->telefono }}</small>
                             </div>
                         @else
-                            <span style="color: #999;">Cliente no encontrado</span>
+                            <span style="color: #666666;">Cliente no encontrado</span>
                         @endif
                     </td>
                     <td>
@@ -48,7 +48,7 @@
                     <td>
                         <div>
                             <strong>{{ $pedido->direccion_envio }}</strong><br>
-                            <small style="color: #999;">{{ $pedido->ciudad_envio }}</small>
+                            <small style="color: #666666;">{{ $pedido->ciudad_envio }}</small>
                         </div>
                     </td>
                     <td>
@@ -83,15 +83,15 @@
                         @if($pedido->productos->count() > 0)
                             <div style="max-width: 200px;">
                                 @foreach($pedido->productos as $producto)
-                                    <div style="background: #333; padding: 0.3rem; margin: 0.2rem 0; border-radius: 5px; font-size: 0.9rem;">
-                                        <strong>{{ $producto->nombre_producto }}</strong><br>
-                                        <small>Cant: {{ $producto->pivot->cantidad }} | 
+                                    <div style="background: #f0f0f0; padding: 0.3rem; margin: 0.2rem 0; border-radius: 5px; font-size: 0.9rem; border: 1px solid #e0e0e0;">
+                                        <strong style="color: #000000;">{{ $producto->nombre_producto }}</strong><br>
+                                        <small style="color: #666666;">Cant: {{ $producto->pivot->cantidad }} | 
                                               Precio: S/. {{ number_format($producto->pivot->precio_unitario, 2) }}</small>
                                     </div>
                                 @endforeach
                             </div>
                         @else
-                            <span style="color: #999;">Sin productos</span>
+                            <span style="color: #666666;">Sin productos</span>
                         @endif
                     </td>
                 </tr>
@@ -100,9 +100,9 @@
         </table>
     @else
         <div style="padding: 3rem; text-align: center;">
-            <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #666; margin-bottom: 1rem;"></i>
-            <h3 style="color: #999; margin-bottom: 0.5rem;">No hay pedidos registrados</h3>
-            <p style="color: #666;">Los pedidos aparecerán aquí cuando los clientes realicen compras.</p>
+            <i class="fas fa-shopping-cart" style="font-size: 4rem; color: #999999; margin-bottom: 1rem;"></i>
+            <h3 style="color: #666666; margin-bottom: 0.5rem;">No hay pedidos registrados</h3>
+            <p style="color: #999999;">Los pedidos aparecerán aquí cuando los clientes realicen compras.</p>
         </div>
     @endif
 </div>
@@ -138,7 +138,7 @@
             </div>
             <div class="stat-number">{{ $pedidosHoy }}</div>
             <div class="stat-label">Pedidos Hoy</div>
-            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #333333;">
                 Nuevos pedidos del día
             </div>
         </div>
@@ -149,7 +149,7 @@
             </div>
             <div class="stat-number">S/. {{ number_format($ticketPromedio, 2) }}</div>
             <div class="stat-label">Ticket Promedio</div>
-            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #333333;">
                 Valor medio por pedido
             </div>
         </div>
@@ -161,7 +161,7 @@
             </div>
             <div class="stat-number">{{ $ciudadMasPedidos->total }}</div>
             <div class="stat-label">{{ $ciudadMasPedidos->ciudad_envio }}</div>
-            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #333333;">
                 Ciudad con más pedidos
             </div>
         </div>
@@ -173,7 +173,7 @@
             </div>
             <div class="stat-number">S/. {{ $pedidosMasAltos->first() ? number_format($pedidosMasAltos->first()->monto_total, 2) : '0.00' }}</div>
             <div class="stat-label">Pedido Más Alto</div>
-            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #cccccc;">
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #333333;">
                 Valor máximo registrado
             </div>
         </div>
@@ -188,14 +188,14 @@
     </div>
     <div style="padding: 1rem;">
         @foreach($pedidosMasAltos as $index => $pedido)
-        <div style="background: #2a2a2a; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="background: #e5e5e5; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <div style="width: 30px; height: 30px; border-radius: 50%; background: #FFD700; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black;">
                     {{ $index + 1 }}
                 </div>
                 <div>
                     <strong>Pedido #{{ $pedido->id_pedido }}</strong><br>
-                    <small style="color: #999;">
+                    <small style="color: #666666;">
                         {{ $pedido->cliente ? $pedido->cliente->nombre : 'Cliente no encontrado' }} | 
                         {{ \Carbon\Carbon::parse($pedido->fecha_pedido)->format('d/m/Y') }}
                     </small>

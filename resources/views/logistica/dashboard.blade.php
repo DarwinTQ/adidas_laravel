@@ -105,8 +105,8 @@
     </div>
     <div style="padding: 2rem;">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px;">
-                <h4 style="color: #ffffff; margin-bottom: 1rem;">
+            <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px;">
+                <h4 style="color: #000000; margin-bottom: 1rem;">
                     <i class="fas fa-shipping-fast"></i> Estado de Envíos
                 </h4>
                 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -131,8 +131,8 @@
                 </div>
             </div>
 
-            <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px;">
-                <h4 style="color: #ffffff; margin-bottom: 1rem;">
+            <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px;">
+                <h4 style="color: #000000; margin-bottom: 1rem;">
                     <i class="fas fa-credit-card"></i> Estado de Pagos
                 </h4>
                 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -151,8 +151,8 @@
                 </div>
             </div>
 
-            <div style="background: #2a2a2a; padding: 1.5rem; border-radius: 10px;">
-                <h4 style="color: #ffffff; margin-bottom: 1rem;">
+            <div style="background: #e5e5e5; padding: 1.5rem; border-radius: 10px;">
+                <h4 style="color: #000000; margin-bottom: 1rem;">
                     <i class="fas fa-motorcycle"></i> Repartidores
                 </h4>
                 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
