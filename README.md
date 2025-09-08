@@ -1,5 +1,5 @@
 # 🏃‍♀️ Adidas Logística - Sistema de Gestión Logística
-- ![PeruBank](/webscrapper.png)
+- ![Adidas](/adidas_main.png)
 
 <p align="center">
   <a href="#english">
